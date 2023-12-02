@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  ollama:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ollama
+    init: true
+    ports:
+      - "11434:11434"
+    devices:
+      - /dev/kfd:/dev/kfd
+      - /dev/dri:/dev/dri
+    group_add:
+      - video
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./data:/home/rocm-user/.ollama:rw,Z,U
+    # Uncomment this if you have problems with selinux and README's solution doesn't work.
+    # privileged: true
